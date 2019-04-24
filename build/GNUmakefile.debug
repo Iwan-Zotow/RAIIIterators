@@ -1,7 +1,0 @@
-# -*- Makefile -*-
-
-# add debugging flags
-
-CXXFLAGS += -ggdb3 -gdwarf-4 -fvar-tracking-assignments -Og
-CFLAGS   += -ggdb3 -gdwarf-4 -fvar-tracking-assignments -Og
-LDFLAGS  += -ggdb3 -gdwarf-4 -fvar-tracking-assignments -Og

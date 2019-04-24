@@ -12,7 +12,7 @@ OSTYPE := $(shell uname -s)
 
 ifeq ($(CONFIG),) # not defined
 
-include build/GNUmakefile.config # default is debug
+include build.make/GNUmakefile.config # default is debug
 
 endif
 
@@ -39,10 +39,10 @@ DEFS  :=
 # compiler flags, dependncy generation and implicit build rules
 #
 
--include build/GNUmakefile.compiler
--include build/GNUmakefile.ABI
--include build/GNUmakefile.depends
--include build/GNUmakefile.rules
+-include build.make/GNUmakefile.compiler
+-include build.make/GNUmakefile.ABI
+-include build.make/GNUmakefile.depends
+-include build.make/GNUmakefile.rules
 
 #
 # sources, objects and targets
@@ -51,7 +51,7 @@ DEFS  :=
 #
 
 SRCS_ITINC := main.cpp
-OBJS_ITINC := $(addsuffix .o, $(basename $(SRCS_ITINC)))	
+OBJS_ITINC := $(addsuffix .o, $(basename $(SRCS_ITINC)))
 DEPS_ITINC := $(addsuffix .d, $(basename $(SRCS_ITINC)))
 
 OBJS := $(OBJS_ITINC)
@@ -66,7 +66,7 @@ ITINC := itinc
 all: $(ITINC)
 
 $(ITINC): $(OBJS_ITINC)
-	$(LD) $(LDFLAGS) -o $@ $(wordlist 1,10000000,$^) -L/usr/local/lib $(SYSLIB)	
+	$(LD) $(LDFLAGS) -o $@ $(wordlist 1,10000000,$^) -L/usr/local/lib $(SYSLIB)
 
 #dependencies
 -include $(DEPS)

@@ -8,7 +8,7 @@
 template <typename I> struct Incrementer
 {
     private: I* _pi;
-    
+
     public: Incrementer() = delete;
 
     public: Incrementer(I* pi):
@@ -18,10 +18,30 @@ template <typename I> struct Incrementer
 
     public: Incrementer(const Incrementer& pi) = delete;
     public: Incrementer& operator=(const Incrementer& pi) = delete;
-    
+
     public: ~Incrementer()
     {
         _pi->increment();
+    }
+};
+
+template <typename I> struct Decrementer
+{
+    private: I* _pi;
+
+    public: Decrementer() = delete;
+
+    public: Decrementer(I* pi):
+        _pi{pi}
+    {
+    }
+
+    public: Decrementer(const Decrementer& pi) = delete;
+    public: Decrementer& operator=(const Decrementer& pi) = delete;
+
+    public: ~Decrementer()
+    {
+        _pi->decrement();
     }
 };
 
@@ -43,13 +63,13 @@ class Iterator
     }
 
     public: Iterator(const Iterator& s) = default;
-    
+
     public: Iterator(Iterator&& s) = default;
 
     public: Iterator& operator=(const Iterator& s) = default;
 
     public: Iterator& operator=(Iterator&& s) = default;
-    
+
     public: ~Iterator() = default;
 #pragma endregion
 
@@ -72,18 +92,34 @@ class Iterator
     {
         ++_p;
     }
-    
+
     public: Iterator operator++()
     {
         increment();
         return *this;
     }
-    
+
     public: Iterator operator++(int)
     {
         Incrementer<Iterator> inc(this);
         return *this;
     }
+
+    public: void decrement()
+    {
+        --_p;
+    }
+
+    public: Iterator operator--()
+    {
+        decrement();
+        return *this;
+    }
+
+    public: Iterator operator--(int)
+    {
+        Decrementer<Iterator> dec(this);
+        return *this;
+    }
 #pragma endregion
 };
-
